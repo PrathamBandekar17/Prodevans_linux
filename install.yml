@@ -1,0 +1,40 @@
+---
+- name: Install Apache Tomcat
+  hosts: all
+  become: yes  
+  tasks:
+    - name: Ensure Java is installed (prerequisite for Tomcat)
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - default-jdk
+
+    - name: Download Apache Tomcat
+      ansible.builtin.get_url:
+        url: "https://downloads.apache.org/tomcat/tomcat-9/v9.0.70/bin/apache-tomcat-9.0.70.tar.gz"
+        dest: /tmp/apache-tomcat-9.0.70.tar.gz
+
+    - name: Extract Tomcat archive
+      ansible.builtin.unarchive:
+        src: /tmp/apache-tomcat-9.0.70.tar.gz
+        dest: /opt/
+        remote_src: yes
+
+    - name: Set permissions for the Tomcat directory
+      ansible.builtin.file:
+        path: /opt/apache-tomcat-9.0.70
+        owner: "{{ ansible_user }}"
+        state: directory	
+        recurse: yes
+
+    - name: Create symbolic link to Tomcat
+      ansible.builtin.file:
+        src: /opt/apache-tomcat-9.0.70
+        dest: /opt/tomcat
+        state: link
+
+    - name: Ensure Tomcat is started
+      ansible.builtin.command: "/opt/apache-tomcat-9.0.70/bin/startup.sh"
+      args:
+        chdir: /opt/apache-tomcat-9.0.70/bin
