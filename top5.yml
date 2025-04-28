@@ -1,0 +1,14 @@
+---
+  - name: Get Top 5 CPU Consuming Processes
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Run ps command to get top 5 CPU consuming processes
+      ansible.builtin.shell: "ps aux --sort=-%cpu | head -n 6"
+      register: top_cpu_processes
+      args:
+        warn: false
+
+    - name: Display the top 5 CPU consuming processes
+      ansible.builtin.debug:
+        var: top_cpu_processes.stdout_lines
