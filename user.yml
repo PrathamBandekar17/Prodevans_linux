@@ -1,0 +1,20 @@
+---
+  - name: Create User on All Hosts
+  hosts: all
+  become: yes  # Required to gain the necessary privileges
+  tasks:
+    - name: Ensure user 'Pratham' is present
+      ansible.builtin.user:
+        name: Pratham
+        state: present
+        comment: "User account for Pratham"
+        home: /home/Pratham
+        shell: /bin/bash
+
+    - name: Ensure home directory exists with correct permissions
+      ansible.builtin.file:
+        path: /home/Pratham
+        state: directory
+        owner: Pratham
+        group: Pratham
+        mode: '0755'
