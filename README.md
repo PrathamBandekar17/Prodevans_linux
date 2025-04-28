@@ -7,11 +7,11 @@ The tasks are designed to automate common administrative activities across CentO
 ## 📚 Playbooks Included
 
 | Playbook | Description |
-| `playbook_top5cpu.yml` | Find and display the top 5 CPU-consuming processes on the server. |
-| `playbook_install_tomcat.yml` | Install Apache Tomcat server along with Java dependencies. |
-| `playbook_fetch_time.yml` | Fetch and display the current system time using Ansible facts. |
-| `playbook_create_user.yml` | Create a new user on the target systems. |
-| `playbook_service_manage.yml` | Start and stop a specified service on Linux systems. |
+| `top5.yml` | Find and display the top 5 CPU-consuming processes on the server. |
+| `install.yml` | Install Apache Tomcat server along with Java dependencies. |
+| `currenttime.yml` | Fetch and display the current system time using Ansible facts. |
+| `user.yml` | Create a new user on the target systems. |
+| `service.yml` | Start and stop a specified service on Linux systems. |
 
 ## 🏗️ Setup Requirements
 
